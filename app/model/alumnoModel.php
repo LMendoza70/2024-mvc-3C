@@ -61,7 +61,17 @@ class alumnoModel{
         return $respuesta;
     }
 
-    public function insert($nombre,$apellido, $edad, $correo, $fecha){
+    public function insert($data){
+        if(!isset($data['nombre'],$data['apellido'],$data['edad'],$data['correo'],$data['fecha'])){
+            return false;
+        }
+        
+        $nombre=$data['nombre'];
+        $apellido=$data['apellido'];
+        $edad=$data['edad'];
+        $correo=$data['correo'];
+        $fecha=$data['fecha'];
+
         $consulta="INSERT INTO alumnos (nombre, apellido, edad, correo_electronico,fecha_nacimiento)
         VALUES ('$nombre', '$apellido', $edad, '$correo', '$fecha')";
         $coneccion=$this->connection->getConnection();

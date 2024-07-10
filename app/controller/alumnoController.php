@@ -21,15 +21,27 @@
             include_once("app/view/admin/plantillaView.php");
         }
         
-        /*public function insert(){
-            if($_SERVER['REQUEST_METOD']=='POST'){
-                $nombre=$_POST['nombre'];
-                //...
-                $this->alumno=new alumnoModel();
-                $respuesta=$this->alumno->insert();
-
+        public function insert(){
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                if(!isset($_POST['nombre'],$_POST['apellido'],$_POST['edad'],$_POST['correo'],$_POST['fecha'])){
+                    header("location:http://localhost/php-3c");
+                }
+                $data=array(
+                    'nombre'=>$_POST['nombre'],
+                    'apellido'=>$_POST['apellido'],
+                    'edad'=>$_POST['edad'],
+                    'correo'=>$_POST['correo'],
+                    'fecha'=>$_POST['fecha']
+                );
+                $alumno= new alumnoModel();
+                $resultado=$alumno->insert($data);
+                if($resultado){
+                    header("location:http://localhost/php-3c/?C=alumnoController&M=index");
+                }else{
+                    header("location:http://localhost/php-3c");
+                }
             }
-        }*/
+        }
 
     }
 
