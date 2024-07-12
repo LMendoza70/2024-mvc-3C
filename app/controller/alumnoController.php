@@ -43,6 +43,50 @@
             }
         }
 
+        public function callEdditForm(){
+            if($_SERVER['REQUEST_METHOD']=='GET'){
+                $id=$_GET['id'];
+                $this->alumno=new alumnoModel();
+                $data = $this->alumno->getById($id);
+                $vista="app/view/admin/alumnos/edditForm.php";
+                include_once("app/view/admin/plantillaView.php");
+            }
+        }
+
+        public function eddit(){
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $dato=array(
+                    'id'=>$_POST['id'],
+                    'nombre'=>$_POST['nombre'],
+                    'apellido'=>$_POST['apellido'],
+                    'edad'=>$_POST['edad'],
+                    'correo'=>$_POST['correo'],
+                    'fecha'=>$_POST['fecha'],
+                );
+                $this->alumno= new alumnoModel();
+                $respuesta=$this->alumno->eddit($dato);
+                if($respuesta){
+                    header("location:http://localhost/php-3c/?C=alumnoController&M=index");
+                }else{
+                    header("location:http://localhost/php-3c");
+                }
+
+            }
+        }
+
+        public function delete(){
+            if($_SERVER['REQUEST_METHOD'] == 'GET'){
+                $id=$_GET['id'];
+                $this->alumno=new alumnoModel();
+                $respuesta=$this->alumno->delete($id);
+                if($respuesta){
+                    header("location:http://localhost/php-3c/?C=alumnoController&M=index");
+                }else{
+                    header("location:http://localhost/php-3c");
+                }
+            }
+        }
+
     }
 
 ?>

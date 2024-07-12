@@ -20,6 +20,7 @@
                 <td>Apellido</td>
                 <td>Edad</td>
                 <td>Email</td>
+                <td>Acciones</td>
             </tr>
         </thead>
         <tbody>
@@ -30,9 +31,23 @@
                     echo "<td>". $dato['apellido'] ."</td>";
                     echo "<td>". $dato['edad'] ."</td>";
                     echo "<td>". $dato['correo_electronico'] ."</td>";
+                    echo "<td> 
+                        <button onclick='editar(". $dato['id_alumno'] .")' >Editar</button> 
+                        <button onclick='eliminar(". $dato['id_alumno'] .")' >Eliminar</button> </td>";
                     echo "</tr>";
                 }
             ?>
         </tbody>
     </table>
+    <script>
+        function editar(id){
+            window.location.href="http://localhost/php-3c?C=alumnoController&M=callEdditForm&id="+id;
+        }
+
+        function eliminar(id){
+            if(confirm("Realmente quieres eliminar al registro "+id+"?")){
+                window.location.href="http://localhost/php-3c?C=alumnoController&M=delete&id="+id;
+            }
+        }
+    </script>
 </div>
