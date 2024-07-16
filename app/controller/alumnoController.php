@@ -6,14 +6,20 @@
         private $alumno;
 
         public function index(){
-            //instanciamos el modelo de alumno
-            $this->alumno= new alumnoModel();
-            //obtenemos la informacion a trabajar dentro de la vista 
-            $datos = $this->alumno->getAll();
-            //definimos la vista a mostrar dentro de la plantilla
-            $vista= "app/view/admin/alumnos/alumnosIndexView.php";
-            //incluimos la plantilla
-            include_once("app/view/admin/plantillaview.php"); 
+            //session_start();
+            if($_SESSION['logedin']==true){
+                //instanciamos el modelo de alumno
+                $this->alumno= new alumnoModel();
+                //obtenemos la informacion a trabajar dentro de la vista 
+                $datos = $this->alumno->getAll();
+                $nombre=$_SESSION['name'];
+                //definimos la vista a mostrar dentro de la plantilla
+                $vista= "app/view/admin/alumnos/alumnosIndexView.php";
+                //incluimos la plantilla
+                include_once("app/view/admin/plantillaview.php");
+            } else{
+                header("location:http://localhost/php-3c/");
+            }
         }
 
         public function callInsertForm(){

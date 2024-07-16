@@ -1,5 +1,6 @@
 <div>
-    <h1>Administracion de alumnos</h1>
+    <h1>Administracion de alumnos </h1>
+    <h3>Welcome <?= $nombre ?></h3>
     <p>
         en esta seccion vamos a mostrar la lista de alumnos y vamos 
         a administrarlos
