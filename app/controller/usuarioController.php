@@ -5,8 +5,14 @@ class usuarioController{
     private $usuario;
 
     public function callLoginForm(){
+        if(session_status()===PHP_SESSION_NONE){
+            session_start();
+        }
         $vista="app/view/admin/loginFormView.php";
-        include_once("app/view/admin/plantillaView.php");
+        if(isset($_SESSION['logedin']) && $_SESSION['logedin']==true)
+            include_once("app/view/admin/plantillaView.php");
+        else
+            include_once("app/view/admin/plantilla2View.php");
     }
 
     public function login(){
@@ -18,7 +24,9 @@ class usuarioController{
             if($respuesta){
                 include_once("app/controller/alumnoController.php");
                 $alumno=new alumnoController();
-                session_start();
+                if(session_status()===PHP_SESSION_NONE){
+                    session_start();
+                }
                 $_SESSION['logedin']=true;
                 $_SESSION['name']=$respuesta['nombre']. " " .$respuesta['apellido'];
                 $alumno->index();
@@ -29,6 +37,17 @@ class usuarioController{
                 include_once("app/view/admin/plantilla2View.php");
             }
         }
+    }
+
+    public function logedout(){
+        if(session_status()===PHP_SESSION_NONE){
+            session_start();
+            $_SESSION['logedin']=false;
+            //session_abort();
+            //session_destroy();
+            header("location:http://localhost/php-3c/");
+        }
+
     }
 }
 ?>

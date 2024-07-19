@@ -12,10 +12,10 @@
         <h1>UTHH Por ser siempre los mejores...</h1>
         <nav class="navbar">
             <ul>
-                <li><a href="#">Inicio</a></li>
+                <li><a href="http://localhost/php-3c">Inicio</a></li>
                 <li><a href="http://localhost/php-3c?C=alumnoController&M=index">Alumnos</a></li>
                 <li><a href="#">Cursos</a></li>
-                <li><a href="http://localhost/php-3c?C=usuarioController&M=callLoginForm">Login</a></li>
+                <li><a href="http://localhost/php-3c?C=usuarioController&M=logedout">Loged out</a></li>
             </ul>
         </nav>
     </header>

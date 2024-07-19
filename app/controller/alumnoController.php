@@ -6,8 +6,11 @@
         private $alumno;
 
         public function index(){
-            //session_start();
-            if($_SESSION['logedin']==true){
+            if(session_status()===PHP_SESSION_NONE){
+                session_start();
+            }
+
+            if( isset($_SESSION['logedin']) && $_SESSION['logedin']==true){
                 //instanciamos el modelo de alumno
                 $this->alumno= new alumnoModel();
                 //obtenemos la informacion a trabajar dentro de la vista 
@@ -23,8 +26,15 @@
         }
 
         public function callInsertForm(){
-            $vista="app/view/admin/alumnos/InsertFormView.php";
-            include_once("app/view/admin/plantillaView.php");
+            if(session_status()===PHP_SESSION_NONE){
+                session_start();
+            }
+            if(isset($_SESSION['logedin']) && $_SESSION['logedin']==true){
+                $vista="app/view/admin/alumnos/InsertFormView.php";
+                include_once("app/view/admin/plantillaView.php");
+            }else{
+                header("location:http://localhost/php-3c/");
+            }
         }
         
         public function insert(){
@@ -50,13 +60,21 @@
         }
 
         public function callEdditForm(){
-            if($_SERVER['REQUEST_METHOD']=='GET'){
-                $id=$_GET['id'];
-                $this->alumno=new alumnoModel();
-                $data = $this->alumno->getById($id);
-                $vista="app/view/admin/alumnos/edditForm.php";
-                include_once("app/view/admin/plantillaView.php");
+            if(session_status()===PHP_SESSION_NONE){
+                session_start();
             }
+            if(isset($_SESSION['logedin']) && $_SESSION['logedin']==true){
+                if($_SERVER['REQUEST_METHOD']=='GET'){
+                    $id=$_GET['id'];
+                    $this->alumno=new alumnoModel();
+                    $data = $this->alumno->getById($id);
+                    $vista="app/view/admin/alumnos/edditForm.php";
+                    include_once("app/view/admin/plantillaView.php");
+                }
+            }else{
+                header("location:http://localhost/php-3c");
+            }
+            
         }
 
         public function eddit(){

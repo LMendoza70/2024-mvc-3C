@@ -3,8 +3,15 @@
         private $vista;
 
         public function index(){
+            if(session_status()===PHP_SESSION_NONE){
+                session_start();
+            }
             $vista="app/view/admin/adminHomeView.php";
-            include_once("app/view/admin/plantilla2View.php");
+            if( isset($_SESSION['logedin']) && $_SESSION['logedin']==true)
+               include_once("app/view/admin/plantillaView.php");
+            else
+                include_once("app/view/admin/plantilla2View.php");
+
         }
-    }
+    }   
 ?>
